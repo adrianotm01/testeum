@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/template/template.xhtml">
+<ui:define name="content">
+<h:form>
+		
+		
+		<p:accordionPanel style="margin: auto;width:400px; margin-top:200px">
+			<p:ajax event="tabChange" listener="#{clienteBean.teste}"></p:ajax>
+			<p:ajax event="tabClose" listener="#{clienteBean.teste2}"></p:ajax>
+			<p:tab title="Dados Cliente" closable="true">
+				<h:panelGrid columns="2" style="background-color:blue;padding:5px; margin:auto;border:1px solid;color:white">
+				<h:outputText value="Proprietario:" />	<h:inputText value="#{clienteBean.cliente.proprietario}" required="true"></h:inputText>
+				<h:outputText value="Telefone:" /> <h:inputText value="#{clienteBean.cliente.telefone}" />
+				<h:outputText value="Propriedade" /><h:inputText value="#{clienteBean.cliente.propriedade}" />
+				<h:outputText value="Data" /><h:outputText value="#{clienteBean.dataAtual}"><f:convertDateTime /> </h:outputText>
+					<h:selectOneMenu value="#{clienteBean.cliente.tipo}" required="true" >
+						<f:selectItem itemLabel="Selecione" itemValue=""/>
+						<f:selectItem itemLabel="Tecnico" itemValue="tecnico"/>
+						<f:selectItem itemLabel="Agricultor" itemValue="agricultor"/>
+					</h:selectOneMenu>
+				<f:facet name="footer" >
+					<h:panelGroup style="display:block; text-align:center">
+						<h:commandButton action="#{clienteBean.nome()}" value="Continuar"/>
+						</h:panelGroup>
+				</f:facet>
+			</h:panelGrid>
+			</p:tab>
+			<p:tab title="Dados endereço" rendered="#{clienteBean.flag}">
+				
+			</p:tab>
+		</p:accordionPanel>
+		
+		<div id="cadastro_div">
+
+		</div>
+		</h:form>
+		</ui:define>
+</ui:composition>
+</html>
