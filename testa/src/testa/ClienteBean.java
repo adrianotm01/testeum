@@ -2,11 +2,8 @@ package testa;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.primefaces.component.accordionpanel.AccordionPanel;

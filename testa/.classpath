@@ -104,5 +104,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/mand4/Downloads/primefaces-6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
