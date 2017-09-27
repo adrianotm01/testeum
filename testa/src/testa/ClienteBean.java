@@ -1,5 +1,10 @@
 package testa;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
@@ -9,6 +14,12 @@ import org.hibernate.Transaction;
 import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import util.HibernateUtil;
 @SessionScoped
 @ManagedBean
@@ -88,5 +99,24 @@ public class ClienteBean {
 	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
 	}
-	
+	public void gerarPdf(){
+		Document document = new Document();
+		
+		try {
+			PdfWriter.getInstance(document, new FileOutputStream("documento.pdf"));
+			document.open();
+			document.add(new Paragraph("Teste do PDF"));
+		} catch (FileNotFoundException | DocumentException e) {
+			e.printStackTrace();
+		}
+		finally{
+			document.close();
+		}
+		try {
+			Desktop.getDesktop().open(new File("documento.pdf"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

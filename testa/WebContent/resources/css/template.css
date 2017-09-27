@@ -1,5 +1,7 @@
 body{
-	background: red;
+	background-image:url("../resources/images/capa_twitter.jpg");
+	background-repeat:no-repeat;
+	background-attachment: fixed;
 	margin:0;
 	
 }

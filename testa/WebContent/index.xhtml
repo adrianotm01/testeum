@@ -10,11 +10,11 @@
 <h:form>
 		
 		
-		<p:accordionPanel style="margin: auto;width:400px; margin-top:100px">
+		<p:accordionPanel style="margin: auto;width:50%; margin-top:100px;margin-bottom:50px;">
 			<p:ajax event="tabChange" listener="#{clienteBean.teste}"></p:ajax>
 			<p:ajax event="tabClose" listener="#{clienteBean.teste2}"></p:ajax>
 			<p:tab title="Dados Cliente" closable="true">
-				<h:panelGrid columns="2" style="background-color:blue;padding:5px; margin:auto;border:1px solid;color:white">
+				<h:panelGrid columns="2" style="background-color:green;padding:5px; margin:auto;border:1px solid;color:white" cellspacing="10" width="200">
 				<h:outputText value="Proprietario:" />	<h:inputText value="#{clienteBean.cliente.proprietario}" required="true"></h:inputText>
 				<h:outputText value="Telefone:" /> <h:inputText value="#{clienteBean.cliente.telefone}" />
 				<h:outputText value="Propriedade" /><h:inputText value="#{clienteBean.cliente.propriedade}" />
@@ -32,13 +32,14 @@
 			</h:panelGrid>
 			</p:tab>
 			<p:tab title="Dados endereço" rendered="#{clienteBean.flag}">
-				
+
 			</p:tab>
 		</p:accordionPanel>
 		
 		<div id="cadastro_div">
-
+			<h:commandButton action="#{clienteBean.gerarPdf()}" value="Gerar" />
 		</div>
+
 		</h:form>
 		</ui:define>
 </ui:composition>
