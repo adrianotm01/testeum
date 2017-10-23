@@ -7,37 +7,77 @@
 
 <ui:composition template="/template/template.xhtml">
 <ui:define name="content">
-<h:form>
+<h:form >
 		
-		
-		<p:accordionPanel style="margin: auto;width:50%; margin-top:100px;margin-bottom:50px;">
-			<p:ajax event="tabChange" listener="#{clienteBean.teste}"></p:ajax>
+		<p:accordionPanel style="margin: auto;width:50%; margin-top:100px;margin-bottom:50px;padding:20px;" binding="#{clienteBean.panel}" >
+	 	<p:ajax event="tabChange" listener="#{clienteBean.teste}"></p:ajax>
 			<p:ajax event="tabClose" listener="#{clienteBean.teste2}"></p:ajax>
-			<p:tab title="Dados Cliente" closable="true">
+			<p:tab title="Dados Cliente" closable="true" >
 				<h:panelGrid columns="2" style="background-color:green;padding:5px; margin:auto;border:1px solid;color:white" cellspacing="10" width="200">
-				<h:outputText value="Proprietario:" />	<h:inputText value="#{clienteBean.cliente.proprietario}" required="true"></h:inputText>
-				<h:outputText value="Telefone:" /> <h:inputText value="#{clienteBean.cliente.telefone}" />
-				<h:outputText value="Propriedade" /><h:inputText value="#{clienteBean.cliente.propriedade}" />
+				<h:outputText value="Proprietario:" />	<h:inputText id="prop" value="#{clienteBean.cliente.proprietario}" required="true" />
+				<h:outputText value="Telefone:" /> <h:inputText value="#{clienteBean.cliente.telefone}" required="true"/>
+				<h:outputText value="Propriedade" /><h:inputText value="#{clienteBean.cliente.propriedade}" required="true"/>
 				<h:outputText value="Data" /><h:outputText value="#{clienteBean.dataAtual}"><f:convertDateTime /> </h:outputText>
 					<h:selectOneMenu value="#{clienteBean.cliente.tipo}" required="true" >
 						<f:selectItem itemLabel="Selecione" itemValue=""/>
 						<f:selectItem itemLabel="Tecnico" itemValue="tecnico"/>
 						<f:selectItem itemLabel="Agricultor" itemValue="agricultor"/>
 					</h:selectOneMenu>
-				<f:facet name="footer" >
-					<h:panelGroup style="display:block; text-align:center">
-						<h:commandButton action="#{clienteBean.nome()}" value="Continuar"/>
-						</h:panelGroup>
-				</f:facet>
-			</h:panelGrid>
+						<h:inputText value="#{clienteBean.cliente.nomeProprietario}" required="true"/>
+							<f:facet name="footer">
+								<h:panelGroup style="display:block; text-align:center">
+									<h:commandButton action="#{clienteBean.nome()}"
+										value="Continuar" />
+								</h:panelGroup>
+							</f:facet>
+					</h:panelGrid>
 			</p:tab>
-			<p:tab title="Dados endereço" rendered="#{clienteBean.flag}">
-
+			<p:tab title="Dados endereço"  id="out1">
+				<h:panelGrid columns="3" style="background-color:green;padding:5px; margin:auto;border:1px solid;color:white" cellspacing="10" width="200">
+					Municipio<h:inputText value="#{clienteBean.end.municipio}" />
+					<h:selectOneMenu value="#{clienteBean.end.UF}" required="true">
+						<f:selectItem itemLabel="UF" itemValue=""/>
+						<f:selectItem itemLabel="AC" itemValue="AC"/>
+						<f:selectItem itemLabel="AL" itemValue="AL"/>
+						<f:selectItem itemLabel="AP" itemValue="AP"/>
+						<f:selectItem itemLabel="AM" itemValue="AM"/>
+						<f:selectItem itemLabel="BA" itemValue="BA"/>
+						<f:selectItem itemLabel="CE" itemValue="CE"/>
+						<f:selectItem itemLabel="DF" itemValue="DF"/>
+						<f:selectItem itemLabel="ES" itemValue="ES"/>
+						<f:selectItem itemLabel="GO" itemValue="GO"/>
+						<f:selectItem itemLabel="MA" itemValue="MA"/>
+						<f:selectItem itemLabel="MT" itemValue="MT"/>
+						<f:selectItem itemLabel="MS" itemValue="MS"/>
+						<f:selectItem itemLabel="MG" itemValue="MG"/>
+						<f:selectItem itemLabel="PA" itemValue="PA"/>
+						<f:selectItem itemLabel="PB" itemValue="PB"/>
+						<f:selectItem itemLabel="PE" itemValue="PE"/>
+						<f:selectItem itemLabel="PI" itemValue="PI"/>
+						<f:selectItem itemLabel="RJ" itemValue="RJ"/>
+						<f:selectItem itemLabel="RN" itemValue="RN"/>
+						<f:selectItem itemLabel="RS" itemValue="RS"/>
+						<f:selectItem itemLabel="RO" itemValue="RO"/>
+						<f:selectItem itemLabel="RR" itemValue="RR"/>
+						<f:selectItem itemLabel="SC" itemValue="SC"/>
+						<f:selectItem itemLabel="SP" itemValue="SP"/>
+						<f:selectItem itemLabel="SE" itemValue="SE"/>
+						<f:selectItem itemLabel="TO" itemValue="TO"/>
+					</h:selectOneMenu>
+					Bairro<h:inputText value="#{clienteBean.end.bairro}" required="true"/><h:inputHidden />
+					Número<h:inputText value="#{clienteBean.end.numero}" required="true"/><h:inputHidden/>
+					Rua<h:inputText value="#{clienteBean.end.rua}" /><h:inputHidden />
+					<f:facet name="footer">
+								<h:panelGroup style="display:block; text-align:center">
+									<h:commandButton action="#{clienteBean.salvar()}"
+										value="Salvar" />
+								</h:panelGroup>
+							</f:facet>
+					</h:panelGrid>
 			</p:tab>
 		</p:accordionPanel>
-		
+		<h:commandButton action="#{clienteBean.gerarPdf()}" value="Imprimir projeto" onmouseover="teste()" styleClass="teste"/>
 		<div id="cadastro_div">
-			<h:commandButton action="#{clienteBean.gerarPdf()}" value="Gerar" />
 		</div>
 
 		</h:form>

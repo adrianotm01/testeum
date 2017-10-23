@@ -3,6 +3,7 @@ package testa;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table
@@ -27,8 +30,19 @@ public class Cliente implements Serializable{
 	private String proprietario;
 	private String propriedade;
 	private String telefone;
+	private String nomeProprietario;
+	
+	public String getNomeProprietario() {
+		return nomeProprietario;
+	}
+
+	public void setNomeProprietario(String nomeProprietario) {
+		this.nomeProprietario = nomeProprietario;
+	}
+
 	private String tipo;
 	@OneToOne(mappedBy = "cliente")
+	@Cascade({org.hibernate.annotations.CascadeType.ALL	})
 	private Endereco endereco;
 	
 	public String getPropriedade() {

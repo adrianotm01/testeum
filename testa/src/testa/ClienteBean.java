@@ -1,6 +1,7 @@
 package testa;
 
 import java.awt.Desktop;
+import org.primefaces.component.accordionpanel.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,21 +15,27 @@ import org.hibernate.Transaction;
 import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import dao.ClienteDAOImpl;
 import util.HibernateUtil;
 @SessionScoped
 @ManagedBean
 public class ClienteBean {
 	private Cliente cliente = new Cliente();
-	Session sessao =  HibernateUtil.getSessionFactory().openSession();
+	private Endereco end = new Endereco();
+	
 	private boolean flag;
-	AccordionPanel panel;
+	AccordionPanel panel ;
+	
 	private Date dataAtual = new Date();
+
 	
 	public ClienteBean() {
 		dataAtual = GregorianCalendar.getInstance().getTime();
@@ -61,27 +68,29 @@ public class ClienteBean {
 	}
 
 	public void salvar(){
-		
-		Transaction trans = sessao.beginTransaction();
-		sessao.save(cliente);
-		trans.commit();
-		sessao.close();
+		cliente.setEndereco(end);
+		end.setCliente(cliente);
 		
 	}
 	
 	public void nome(){
-
-		if(!(cliente.getProprietario().isEmpty())){
-			flag = true;
-		}
+		panel.setActiveIndex("1");		
 	}
 	
 	public void teste(TabChangeEvent event){
-		System.out.println(cliente.getProprietario()+"qq");
+		
+		//if(cliente.getProprietario() == null){
+			//panel.set
+			//System.out.println("test");
+	//	}
+		
 	}
 	
 	public void teste2(TabCloseEvent event){
-		System.out.println("teste");
+		if(!(cliente.getProprietario() == null)){
+			flag = true;
+			System.out.println(cliente.getProprietario());
+		}
 	}
 	
 	public AccordionPanel getPanel() {
@@ -103,9 +112,16 @@ public class ClienteBean {
 		Document document = new Document();
 		
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream("documento.pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream("c:\\users\\mand4\\documento.pdf"));
 			document.open();
-			document.add(new Paragraph("Teste do PDF"));
+			Paragraph p1 = new Paragraph("Teste do PDF");
+			p1.setAlignment(Element.ALIGN_CENTER);
+			p1.setFont(new Font(FontFamily.TIMES_ROMAN,20,Font.BOLD));
+			document.addAuthor("Adriano Macedo TCC");
+			document.addCreationDate();
+			document.addTitle("IRRIGACAO POR ASPERSAO");
+			document.add(p1);
+			document.add(new Paragraph("Nome do produtor: "+cliente.getProprietario()));
 		} catch (FileNotFoundException | DocumentException e) {
 			e.printStackTrace();
 		}
@@ -113,10 +129,19 @@ public class ClienteBean {
 			document.close();
 		}
 		try {
-			Desktop.getDesktop().open(new File("documento.pdf"));
+			Desktop.getDesktop().open(new File("c:\\users\\mand4\\documento.pdf"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	public Endereco getEnd() {
+		return end;
+	}
+
+	public void setEnd(Endereco end) {
+		this.end = end;
 	}
 }

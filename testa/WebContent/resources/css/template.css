@@ -6,7 +6,6 @@ body{
 	
 }
 select{
-	
 	border:none;
 	border-radius:4px;
 	background-color:#f1f1f1;
@@ -41,7 +40,17 @@ ul{
 	margin: 0;
 	padding: 0;
 	background: rgba(39,69,88,.98);
+	
 	height:40px;
+}
+ul li{
+	position:relative;
+}
+li ul{
+	position: absolute;
+	top:39px;
+	left:0;
+	display:none;
 }
  li{
 	float:left;
@@ -59,3 +68,7 @@ li a{
 	text-align:center;
 	padding: 8px 8px;
 }
+li:HOVER ul{
+	display: inline-block;
+}
+
