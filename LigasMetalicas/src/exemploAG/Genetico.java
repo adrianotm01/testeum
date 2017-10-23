@@ -46,6 +46,20 @@ public class Genetico {
 	}
 	
 	public Individuo[] cruzamento(Individuo pais, Individuo pais2){
+		 //sorteia o ponto de corte
+        int pontoCorte1 = rand.nextInt((pais.getGenes().length/2) -2) + 1;
+        int pontoCorte2 = rand.nextInt((pais.getGenes().length/2) -2) + pais.getGenes().length/2;
+
+        Individuo[] filhos = new Individuo[2];
+        double genePai1 = pais.getGenes()[0];
+        double genePai2 = pais2.getGenes()[1];
+        
+        double genefilho1;
+        double genefilho2;
+        
+        genefilho1 = genePai1.
+    
+		return null;
 		
 	}
 	
